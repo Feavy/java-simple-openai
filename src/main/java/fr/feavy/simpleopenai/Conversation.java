@@ -16,6 +16,14 @@ public class Conversation {
         return conversation;
     }
 
+    public void addMessage(ChatMessage message) {
+        conversation.add(message);
+    }
+
+    public void addMessage(int index, ChatMessage message) {
+        conversation.add(index, message);
+    }
+
     public JSONArray toJson() {
         return new JSONArray(this.getMessages().stream().map(ChatMessage::toJsonObject).collect(Collectors.toList()));
     }
