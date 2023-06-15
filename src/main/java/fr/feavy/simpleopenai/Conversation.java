@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Conversation {
-    private final List<ChatMessage> conversation = new ArrayList<>();
+    protected final List<ChatMessage> conversation = new ArrayList<>();
 
     public Conversation() {
     }
