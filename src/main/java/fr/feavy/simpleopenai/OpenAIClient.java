@@ -65,12 +65,17 @@ public class OpenAIClient {
             }
 
             String response = httpResponse.body();
+            JSONObject responseJson = new JSONObject(response);
+
+            if(responseJson.has("error")) {
+                throw new OpenAICompletionException(responseJson.getJSONObject("error"));
+            }
 
 //            System.out.println("<<<");
 //            System.out.println(response);
 //            System.out.println("<<<");
 
-            JSONArray choices = new JSONObject(response).getJSONArray("choices");
+            JSONArray choices = responseJson.getJSONArray("choices");
             String completed = format(choices.getJSONObject(0).getJSONObject("message").getString("content"));
 //            System.out.println("COMPLETED: "+completed);
             return completed;
@@ -119,12 +124,17 @@ public class OpenAIClient {
             }
 
             String response = httpResponse.body();
+            JSONObject responseJson = new JSONObject(response);
+
+            if(responseJson.has("error")) {
+                throw new OpenAICompletionException(responseJson.getJSONObject("error"));
+            }
 
 //            System.out.println("<<<");
 //            System.out.println(response);
 //            System.out.println("<<<");
 
-            JSONArray choices = new JSONObject(response).getJSONArray("choices");
+            JSONArray choices = responseJson.getJSONArray("choices");
             String completed = format(choices.getJSONObject(0).getString("text"));
 //            System.out.println("COMPLETED: "+completed);
             return completed;
