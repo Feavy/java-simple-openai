@@ -36,14 +36,20 @@ public class ChatMessage {
     }
 
     public JSONObject toJsonObject() {
+        return toJsonObject(true);
+    }
+
+    public JSONObject toJsonObject(boolean includeImages) {
         JSONArray content = new JSONArray();
 
         content.put(new JSONObject(Map.of("type", "text", "text", this.content)));
-        for (String imageUrl : this.imageUrls) {
-            content.put(new JSONObject(Map.of(
-                    "type", "image_url",
-                    "image_url", Map.of("url", imageUrl)
-            )));
+        if(includeImages) {
+            for (String imageUrl : this.imageUrls) {
+                content.put(new JSONObject(Map.of(
+                        "type", "image_url",
+                        "image_url", Map.of("url", imageUrl)
+                )));
+            }
         }
 
         return new JSONObject(Map.of(

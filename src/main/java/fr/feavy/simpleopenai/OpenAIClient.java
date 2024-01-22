@@ -27,11 +27,12 @@ public class OpenAIClient {
 
     public CompletableFuture<String> complete(Conversation conversation, CompletionEngine engine, int maxTokens) {
         System.out.println("Completing with engine: " + engine.engineName + " (chatbot: " + engine.isChatBot + ")");
-        return engine.isChatBot ? completeChatBot(conversation, engine.engineName, maxTokens) : completeClassic(conversation, engine.engineName, maxTokens);
+
+        return engine.isChatBot ? completeChatBot(conversation, engine.engineName, maxTokens, engine.supportsImage) : completeClassic(conversation, engine.engineName, maxTokens);
     }
 
-    private CompletableFuture<String> completeChatBot(Conversation conversation, String engineName, int maxTokens) {
-        String messages = conversation.toJson().toString();
+    private CompletableFuture<String> completeChatBot(Conversation conversation, String engineName, int maxTokens, boolean includeImages) {
+        String messages = conversation.toJson(includeImages).toString();
 
 //        System.out.println("COMPLETE: "+ conversation);
 //        System.out.println(">>>");

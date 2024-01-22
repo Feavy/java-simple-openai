@@ -24,8 +24,12 @@ public class Conversation {
         conversation.add(index, message);
     }
 
+    public JSONArray toJson(boolean includeImages) {
+        return new JSONArray(this.getMessages().stream().map(it -> it.toJsonObject(includeImages)).collect(Collectors.toList()));
+    }
+
     public JSONArray toJson() {
-        return new JSONArray(this.getMessages().stream().map(ChatMessage::toJsonObject).collect(Collectors.toList()));
+        return toJson(true);
     }
 
     @Override
