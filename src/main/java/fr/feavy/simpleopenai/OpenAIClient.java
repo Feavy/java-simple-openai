@@ -13,13 +13,17 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class OpenAIClient {
-    public final String token;
-    private static final ExecutorService executor = Executors.newCachedThreadPool();
+    private final String token;
+    private final ExecutorService executor;
 
-    public OpenAIClient(String token) {
+    public OpenAIClient(String token, ExecutorService executor) {
         this.token = token;
+        this.executor = executor;
     }
 
+    public OpenAIClient(String token) {
+        this(token, Executors.newCachedThreadPool());
+    }
 
     public CompletableFuture<String> complete(Conversation conversation, CompletionEngine engine) {
         return complete(conversation, engine, 300);
