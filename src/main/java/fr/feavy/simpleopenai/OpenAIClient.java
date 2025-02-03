@@ -26,7 +26,7 @@ public class OpenAIClient {
     }
 
     public CompletableFuture<String> complete(Conversation conversation, CompletionEngine engine, int maxTokens) {
-        System.out.println("Completing with engine: " + engine.engineName + " (chatbot: " + engine.isChatBot + ")");
+       // System.out.println("Completing with engine: " + engine.engineName + " (chatbot: " + engine.isChatBot + ")");
 
         return engine.isChatBot ? completeChatBot(conversation, engine.engineName, maxTokens, engine.supportsImage) : completeClassic(conversation, engine.engineName, maxTokens);
     }
